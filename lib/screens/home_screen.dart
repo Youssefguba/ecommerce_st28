@@ -1,14 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_st28_second/assets_images.dart';
+import 'package:ecommerce_st28_second/models/product_model.dart';
 import 'package:ecommerce_st28_second/widgets/product_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  static const image = 'https://5.imimg.com/data5/SELLER/Default/2022/3/QX/DC/DV/12982737/whatsapp-image-2022-03-26-at-2-45-17-pm-500x500.jpeg';
-  static const image2 = 'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg';
-  static const image3 = 'https://www.platypusshoes.co.nz/media/wysiwyg/PLAT_New_Website_Category_Pages_may_20234_1.jpg?auto=webp&quality=85&format=pjpg&width=800';
+  static const image =
+      'https://5.imimg.com/data5/SELLER/Default/2022/3/QX/DC/DV/12982737/whatsapp-image-2022-03-26-at-2-45-17-pm-500x500.jpeg';
+  static const image2 =
+      'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg';
+  static const image3 =
+      'https://www.platypusshoes.co.nz/media/wysiwyg/PLAT_New_Website_Category_Pages_may_20234_1.jpg?auto=webp&quality=85&format=pjpg&width=800';
 
   final List<String> listOfImages = [
     'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg',
@@ -57,6 +61,34 @@ class HomeScreen extends StatelessWidget {
       'price': 100,
       'image': image,
     },
+  ];
+
+  final List<ProductModel> productList = [
+    ProductModel(
+      title: 'T-shirt',
+      image: image2,
+      price: 10,
+    ),
+    ProductModel(
+      title: 'T-shirt',
+      image: image3,
+      price: 1000,
+    ),
+    ProductModel(
+      title: 'T-shirt',
+      image: image,
+      price: 1010,
+    ),
+    ProductModel(
+      title: 'T-shirt',
+      image: image2,
+      price: 1040,
+    ),
+    ProductModel(
+      title: 'T-shirt',
+      image: image3,
+      price: 100,
+    ),
   ];
 
   @override
@@ -137,9 +169,11 @@ class HomeScreen extends StatelessWidget {
               height: 200,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                itemCount: 0, // TODO: PUT LENGTH HERE
+                itemCount: productList.length,
                 itemBuilder: (context, index) {
-                  return ProductItemWidget();  // TODO: PUT Product Item HERE in Constructor
+                  return ProductItemWidget(
+                    productItem: productList[index],
+                  );
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(width: 10);

@@ -1,7 +1,11 @@
+import 'package:ecommerce_st28_second/models/product_model.dart';
 import 'package:ecommerce_st28_second/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductItemWidget extends StatelessWidget {
+  final ProductModel productItem;
+
+  const ProductItemWidget({super.key, required this.productItem});
 
   // Dummy Data
   @override
@@ -25,7 +29,7 @@ class ProductItemWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               image: DecorationImage(
                 image: NetworkImage(
-                  'PUT IMAGE HERE', // TODO
+                  productItem.image,
                 ),
                 fit: BoxFit.fill,
               ),
@@ -34,7 +38,7 @@ class ProductItemWidget extends StatelessWidget {
           const SizedBox(height: 8),
           // Title
           Text(
-            'PUT TEXT HERE', // TODO
+            productItem.title,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: TextStyle(
@@ -45,7 +49,7 @@ class ProductItemWidget extends StatelessWidget {
           const SizedBox(height: 8),
 
           Text(
-            'PUT PRICE HERE', // TODO
+            productItem.price.toString(),
             maxLines: 1,
             style: TextStyle(
               color: AppColors.primaryColor,
