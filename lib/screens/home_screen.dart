@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 0, // TODO: PUT LENGTH HERE
                 itemBuilder: (context, index) {
-                  return ProductItemWidget();
+                  return ProductItemWidget();  // TODO: PUT Product Item HERE in Constructor
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(width: 10);
