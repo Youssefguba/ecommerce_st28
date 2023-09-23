@@ -1,11 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_st28_second/assets_images.dart';
+import 'package:ecommerce_st28_second/widgets/product_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final listOfFra5 = [
+  static const image = 'https://5.imimg.com/data5/SELLER/Default/2022/3/QX/DC/DV/12982737/whatsapp-image-2022-03-26-at-2-45-17-pm-500x500.jpeg';
+  static const image2 = 'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg';
+  static const image3 = 'https://www.platypusshoes.co.nz/media/wysiwyg/PLAT_New_Website_Category_Pages_may_20234_1.jpg?auto=webp&quality=85&format=pjpg&width=800';
+
+  final List<String> listOfImages = [
     'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg',
     'https://5.imimg.com/data5/SELLER/Default/2022/3/QX/DC/DV/12982737/whatsapp-image-2022-03-26-at-2-45-17-pm-500x500.jpeg',
     'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg',
@@ -14,6 +19,44 @@ class HomeScreen extends StatelessWidget {
     'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ccb15778ba924a508c51af7900e1d508_9366/Avryn_Shoes_White_HP5973_01_standard.jpg',
     'https://i.ebayimg.com/00/s/MTEwMFgxMTAw/z/fX0AAOSw4FpiGRvk/\$_12.JPG?set_id=880000500F',
     'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ccb15778ba924a508c51af7900e1d508_9366/Avryn_Shoes_White_HP5973_01_standard.jpg',
+  ];
+
+  final List<Map<String, dynamic>> listOfProducts = [
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image,
+    },
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image2,
+    },
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image3,
+    },
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image,
+    },
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image2,
+    },
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image3,
+    },
+    {
+      'title': 'Tshirt',
+      'price': 100,
+      'image': image,
+    },
   ];
 
   @override
@@ -25,6 +68,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Search Bar
             const SizedBox(height: 12),
+
             const SearchBarWidget(),
 
             // Slider
@@ -68,39 +112,55 @@ class HomeScreen extends StatelessWidget {
               height: 100,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
                 child: Row(
                   children: [
                     ListView.builder(
                       shrinkWrap: true,
-                      itemCount: listOfFra5.length,
+                      itemCount: listOfImages.length,
                       scrollDirection: Axis.horizontal,
+                      physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, i) {
-                        return buildCircleAvatar(listOfFra5[i]);
+                        return buildCircleAvatar(listOfImages[i]);
                       },
                     ),
-                    TextButton(
-                      onPressed: () {},
+                    InkWell(
+                      onTap: () {},
                       child: Center(child: Text('See More')),
                     ),
                   ],
                 ),
               ),
             ),
+
+            SizedBox(
+              height: 200,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: 0, // TODO: PUT LENGTH HERE
+                itemBuilder: (context, index) {
+                  return ProductItemWidget();
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(width: 10);
+                },
+              ),
+            ),
+
+            // List View Scrollable with for loop
             // SizedBox(
             //   height: 100,
             //   child: ListView(
             //     scrollDirection: Axis.horizontal,
             //     children: [
-            //       // for (var i = 0; i < listOfFra5.length; i++)
-            //       //   buildCircleAvatar(
-            //       //     listOfFra5[i],
-            //       //   ),
-            //       ListView.builder(
-            //         scrollDirection: Axis.horizontal,
-            //         itemBuilder: (context, i) {
-            //           return buildCircleAvatar(listOfFra5[i]);
-            //         },
-            //       ),
+            //       // for (var i = 0; i < listOfImages.length; i++)
+            //       //   buildCircleAvatar(listOfImages[i]),
+            //       // ListView.builder(
+            //       //   scrollDirection: Axis.horizontal,
+            //       //   itemBuilder: (context, i) {
+            //       //     return buildCircleAvatar(listOfFra5[i]);
+            //       //   },
+            //       // ),
             //     ],
             //   ),
             // ),
@@ -117,7 +177,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 32,
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.blue,
             child: CircleAvatar(
               radius: 30,
               backgroundColor: Colors.white,

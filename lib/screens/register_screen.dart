@@ -1,4 +1,5 @@
-import 'package:ecommerce_st28_second/login_screen.dart';
+import 'package:ecommerce_st28_second/screens/login_screen.dart';
+import 'package:ecommerce_st28_second/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -78,7 +79,7 @@ class RegisterScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff40BFFF),
+                    backgroundColor: AppColors.primaryColor,
                     fixedSize: Size(screenWidth, 50),
                   ),
                   child: Text(
@@ -163,7 +164,7 @@ class RegisterScreen extends StatelessWidget {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                          color: Color(0xff40bfff),
+                          color: AppColors.primaryColor,
                           fontWeight: FontWeight.w700,
                         ),
                       ),

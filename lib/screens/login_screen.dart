@@ -1,5 +1,6 @@
-import 'package:ecommerce_st28_second/home_screen.dart';
-import 'package:ecommerce_st28_second/register_screen.dart';
+import 'package:ecommerce_st28_second/screens/home_screen.dart';
+import 'package:ecommerce_st28_second/screens/register_screen.dart';
+import 'package:ecommerce_st28_second/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -67,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff40BFFF),
+                    backgroundColor: AppColors.primaryColor,
                     fixedSize: Size(screenWidth, 50),
                   ),
                   child: Text(
@@ -152,7 +153,7 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                         "Register",
                         style: TextStyle(
-                          color: Color(0xff40bfff),
+                          color: AppColors.primaryColor,
                           fontWeight: FontWeight.w700,
                         ),
                       ),

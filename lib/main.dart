@@ -1,6 +1,6 @@
 
-import 'package:ecommerce_st28_second/login_screen.dart';
-import 'package:ecommerce_st28_second/splash_screen.dart';
+import 'package:ecommerce_st28_second/screens/login_screen.dart';
+import 'package:ecommerce_st28_second/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
