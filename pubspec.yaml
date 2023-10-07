@@ -14,10 +14,21 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.2.1
+  dio: ^5.3.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: ^0.13.1
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/blue_logo.png"
+  min_sdk_android: 21
+
 
 #  flutter_lints: ^2.0.0
 flutter:

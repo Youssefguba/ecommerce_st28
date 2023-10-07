@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_st28_second/assets_images.dart';
 import 'package:ecommerce_st28_second/models/product_model.dart';
 import 'package:ecommerce_st28_second/widgets/product_item_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
