@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_st28_second/assets_images.dart';
 import 'package:ecommerce_st28_second/models/product_model.dart';
+import 'package:ecommerce_st28_second/test_dio.dart';
 import 'package:ecommerce_st28_second/widgets/product_item_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -141,30 +142,42 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Category
-            SizedBox(
-              height: 100,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                child: Row(
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listOfImages.length,
+            FutureBuilder(
+                future: getCategories(),
+                builder: (context, snapshot) {
+
+                  if(snapshot.connectionState == ConnectionState.waiting) {
+
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  return SizedBox(
+                    height: 100,
+                    child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, i) {
-                        return buildCircleAvatar(listOfImages[i]);
-                      },
+                      physics: BouncingScrollPhysics(),
+                      child: Row(
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.data.listOfCategories.length,
+                            scrollDirection: Axis.horizontal,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, i) {
+                              return buildCircleAvatar(
+                                snapshot.data!.data.listOfCategories[i].image,
+                              );
+                            },
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: Center(child: Text('See More')),
+                          ),
+                        ],
+                      ),
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Center(child: Text('See More')),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  );
+                }),
 
             SizedBox(
               height: 200,
