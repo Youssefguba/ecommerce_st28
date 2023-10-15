@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_st28_second/assets_images.dart';
 import 'package:ecommerce_st28_second/models/product_model.dart';
-import 'package:ecommerce_st28_second/test_dio.dart';
+import 'package:ecommerce_st28_second/repository/category_repo.dart';
+import 'package:ecommerce_st28_second/screens/category_screen.dart';
 import 'package:ecommerce_st28_second/widgets/product_item_widget.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -143,14 +143,19 @@ class HomeScreen extends StatelessWidget {
 
             // Category
             FutureBuilder(
-                future: getCategories(),
-                builder: (context, snapshot) {
+              future: CategoryRepo().getCategories(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
 
-                  if(snapshot.connectionState == ConnectionState.waiting) {
-
-                    return Center(child: CircularProgressIndicator());
-                  }
-
+                if (snapshot.hasData) {
+                  final categoryList = snapshot.data!;
                   return SizedBox(
                     height: 100,
                     child: SingleChildScrollView(
@@ -160,12 +165,29 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           ListView.builder(
                             shrinkWrap: true,
-                            itemCount: snapshot.data!.data.listOfCategories.length,
+                            itemCount: categoryList.length,
                             scrollDirection: Axis.horizontal,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, i) {
-                              return buildCircleAvatar(
-                                snapshot.data!.data.listOfCategories[i].image,
+                              return GestureDetector(
+                                onTap: () {
+
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return CategoryProductScreen(
+                                          name: categoryList[i].name,
+                                          id:  categoryList[i].id,
+                                        );
+                                      },
+                                    ),
+                                  );
+
+                                },
+                                child: buildCircleAvatar(
+                                  categoryList[i].image,
+                                  categoryList[i].name,
+                                ),
                               );
                             },
                           ),
@@ -177,7 +199,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   );
-                }),
+                }
+
+                return const SizedBox();
+              },
+            ),
 
             SizedBox(
               height: 200,
@@ -218,7 +244,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildCircleAvatar(String image) {
+  Widget buildCircleAvatar(String image, String title) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       child: Column(
@@ -232,6 +258,7 @@ class HomeScreen extends StatelessWidget {
               backgroundImage: NetworkImage(image),
             ),
           ),
+          Text(title),
         ],
       ),
     );

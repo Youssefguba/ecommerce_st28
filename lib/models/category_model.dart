@@ -2,30 +2,30 @@
 class CategoryModel {
   final bool status;
   final dynamic message;
-  final Data data;
+  final CategoryData categoryData;
 
   CategoryModel({
     required this.status,
     required this.message,
-    required this.data,
+    required this.categoryData,
   });
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
     status: json["status"],
     message: json["message"],
-    data: Data.fromJson(json["data"]),
+    categoryData: CategoryData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    "data": categoryData.toJson(),
   };
 }
 
-class Data {
+class CategoryData {
   final int currentPage;
-  final List<Datum> listOfCategories;
+  final List<CategoryItemModel> listOfCategories;
   final String firstPageUrl;
   final int from;
   final int lastPage;
@@ -37,7 +37,7 @@ class Data {
   final int to;
   final int total;
 
-  Data({
+  CategoryData({
     required this.currentPage,
     required this.listOfCategories,
     required this.firstPageUrl,
@@ -52,9 +52,9 @@ class Data {
     required this.total,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory CategoryData.fromJson(Map<String, dynamic> json) => CategoryData(
     currentPage: json["current_page"],
-    listOfCategories: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    listOfCategories: List<CategoryItemModel>.from(json["data"].map((x) => CategoryItemModel.fromJson(x))),
     firstPageUrl: json["first_page_url"],
     from: json["from"],
     lastPage: json["last_page"],
@@ -83,18 +83,18 @@ class Data {
   };
 }
 
-class Datum {
+class CategoryItemModel {
   final int id;
   final String name;
   final String image;
 
-  Datum({
+  CategoryItemModel({
     required this.id,
     required this.name,
     required this.image,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory CategoryItemModel.fromJson(Map<String, dynamic> json) => CategoryItemModel(
     id: json["id"],
     name: json["name"],
     image: json["image"],
