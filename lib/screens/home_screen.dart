@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_st28_second/assets_images.dart';
+import 'package:ecommerce_st28_second/models/category_model.dart';
 import 'package:ecommerce_st28_second/models/product_model.dart';
 import 'package:ecommerce_st28_second/repository/category_repo.dart';
 import 'package:ecommerce_st28_second/screens/category_screen.dart';
 import 'package:ecommerce_st28_second/widgets/product_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
   static const image =
@@ -16,6 +18,11 @@ class HomeScreen extends StatelessWidget {
   static const image3 =
       'https://www.platypusshoes.co.nz/media/wysiwyg/PLAT_New_Website_Category_Pages_may_20234_1.jpg?auto=webp&quality=85&format=pjpg&width=800';
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final List<String> listOfImages = [
     'https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F221109130505-yeezy-shoes-adidas-1025.jpg',
     'https://5.imimg.com/data5/SELLER/Default/2022/3/QX/DC/DV/12982737/whatsapp-image-2022-03-26-at-2-45-17-pm-500x500.jpeg',
@@ -31,67 +38,78 @@ class HomeScreen extends StatelessWidget {
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image,
+      'image': HomeScreen.image,
     },
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image2,
+      'image': HomeScreen.image2,
     },
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image3,
+      'image': HomeScreen.image3,
     },
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image,
+      'image': HomeScreen.image,
     },
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image2,
+      'image': HomeScreen.image2,
     },
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image3,
+      'image': HomeScreen.image3,
     },
     {
       'title': 'Tshirt',
       'price': 100,
-      'image': image,
+      'image': HomeScreen.image,
     },
   ];
 
   final List<ProductModel> productList = [
     ProductModel(
       title: 'T-shirt',
-      image: image2,
+      image: HomeScreen.image2,
       price: 10,
     ),
     ProductModel(
       title: 'T-shirt',
-      image: image3,
+      image: HomeScreen.image3,
       price: 1000,
     ),
     ProductModel(
       title: 'T-shirt',
-      image: image,
+      image: HomeScreen.image,
       price: 1010,
     ),
     ProductModel(
       title: 'T-shirt',
-      image: image2,
+      image: HomeScreen.image2,
       price: 1040,
     ),
     ProductModel(
       title: 'T-shirt',
-      image: image3,
+      image: HomeScreen.image3,
       price: 100,
     ),
   ];
+
+
+
+  Future<List<CategoryItemModel>>? categoryData;
+
+  @override
+  void initState() {
+    super.initState();
+    categoryData = CategoryRepo().getCategories();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -143,13 +161,28 @@ class HomeScreen extends StatelessWidget {
 
             // Category
             FutureBuilder(
-              future: CategoryRepo().getCategories(),
+              future: categoryData,
               builder: (context, snapshot) {
+
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return SizedBox(
-                    height: 100,
-                    child: Center(
-                      child: CircularProgressIndicator(),
+                    width: 200.0,
+                    height: 100.0,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey,
+                      highlightColor: Colors.white,
+                      child: ListView.separated(
+                        itemCount: 5,
+                        separatorBuilder: (context, index) {
+                          return SizedBox(width: 10);
+                        },
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return CircleAvatar(
+                            radius: 30,
+                          );
+                        },
+                      ),
                     ),
                   );
                 }
@@ -171,18 +204,16 @@ class HomeScreen extends StatelessWidget {
                             itemBuilder: (context, i) {
                               return GestureDetector(
                                 onTap: () {
-
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
                                         return CategoryProductScreen(
                                           name: categoryList[i].name,
-                                          id:  categoryList[i].id,
+                                          id: categoryList[i].id,
                                         );
                                       },
                                     ),
                                   );
-
                                 },
                                 child: buildCircleAvatar(
                                   categoryList[i].image,

@@ -7,8 +7,13 @@ class ProductRepo {
     ),
   );
 
-  Future<dynamic> getProducts(int id) async {
-    final response = await dio.get('products?category_id=$id');
+  Future<dynamic> getProductsByCategoryId(int categoryId) async {
+    final response = await dio.get('products?category_id=$categoryId');
+    return response.data['data']['data'];
+  }
+
+  Future<dynamic> getProductsByCategoryIdInFirebase(int categoryId) async {
+    final response = await dio.get('products?category_id=$categoryId');
     return response.data['data']['data'];
   }
 

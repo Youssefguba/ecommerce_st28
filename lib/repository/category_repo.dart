@@ -8,10 +8,16 @@ class CategoryRepo {
     ),
   );
 
+
+
   Future<List<CategoryItemModel>> getCategories() async {
+    //                                                   endpoint
     final response = await dio.get('categories');
+
     final categoryModel = CategoryModel.fromJson(response.data);
+
     final categoryData = categoryModel.categoryData.listOfCategories;
+
     return categoryData;
   }
 

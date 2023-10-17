@@ -19,7 +19,7 @@ class CategoryProductScreen extends StatelessWidget {
         title: Text(name),
       ),
       body: FutureBuilder(
-          future: ProductRepo().getProducts(id),
+          future: ProductRepo().getProductsByCategoryId(id),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(

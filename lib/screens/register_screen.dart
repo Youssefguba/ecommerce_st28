@@ -2,11 +2,17 @@ import 'package:ecommerce_st28_second/screens/login_screen.dart';
 import 'package:ecommerce_st28_second/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
+
     // final width = MediaQuery.of(context).size.width; // Bad Performance
     final screenWidth = MediaQuery.sizeOf(context).width; // Good Performance
     return Scaffold(
@@ -56,23 +62,37 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-
                 TextFormField(
-                  obscureText: true,
+                  obscureText: isObscure,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Password',
                     prefixIcon: Icon(Icons.lock_outlined),
+                    suffixIcon: IconButton(
+                      icon: isObscure ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          // if (isObscure == true) {
+                          //   isObscure = false;
+                          // } else {
+                          //   isObscure = true;
+                          // }
+                          //
+
+                          isObscure = !isObscure;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
-
                 TextFormField(
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Confirm Password',
                     prefixIcon: Icon(Icons.lock_outlined),
+                    suffixIcon: Icon(Icons.visibility_off),
                   ),
                 ),
                 const SizedBox(height: 18),
