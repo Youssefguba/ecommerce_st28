@@ -12,7 +12,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     // final width = MediaQuery.of(context).size.width; // Bad Performance
     final screenWidth = MediaQuery.sizeOf(context).width; // Good Performance
     return Scaffold(
@@ -69,7 +68,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintText: 'Password',
                     prefixIcon: Icon(Icons.lock_outlined),
                     suffixIcon: IconButton(
-                      icon: isObscure ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+                      icon: isObscure
+                          ? Icon(Icons.visibility_off)
+                          : Icon(Icons.visibility),
                       onPressed: () {
                         setState(() {
                           // if (isObscure == true) {
